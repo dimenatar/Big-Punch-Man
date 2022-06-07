@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print(_joystick.GetTouchPosition);
         _agent.Move(ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed);
     }
 

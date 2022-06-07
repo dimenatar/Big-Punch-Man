@@ -15,6 +15,11 @@ public class EnemyAnimations : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    private void OnDestroy()
+    {
+        _animator.enabled = false;
+    }
+
     public void Run() => _animator.SetTrigger(RUN);
     public void Fight() => _animator.SetTrigger(FIGHT);
 }

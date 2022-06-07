@@ -13,6 +13,11 @@ public class EnemyFight : MonoBehaviour
         _delayToHit = delayToHit;
     }
 
+    private void OnDestroy()
+    {
+        StopCoroutine(FightWithEnemy(null));
+    }
+
     public void StartFight(Player player) => StartCoroutine(FightWithEnemy(player));
     public void StopFight(Player player) => StopCoroutine(FightWithEnemy(player));
 
