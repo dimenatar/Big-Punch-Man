@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TouchPosition : MonoBehaviour
 {
@@ -18,9 +19,14 @@ public class TouchPosition : MonoBehaviour
 
     private void Update()
     {
+        GetInput();
+    }
+
+    private void GetInput()
+    {
         if (_isShown)
         {
-           // if (!_isHodling && Input.touchCount > 0)
+            // if (!_isHodling && Input.touchCount > 0)
             if (!_isHolding && Input.GetMouseButtonDown(0))
             {
                 // _touch.transform.position = _main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -30,8 +36,8 @@ public class TouchPosition : MonoBehaviour
                 _isHolding = true;
             }
         }
-       // if (Input.touchCount > 0 && _isHodling)
-       if (_isHolding)
+        // if (Input.touchCount > 0 && _isHodling)
+        if (_isHolding)
         {
             //Touch touch = Input.GetTouch(0);
             //if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -43,6 +49,7 @@ public class TouchPosition : MonoBehaviour
             }
         }
     }
+
 
     public void DisalbeTouch() => _isShown = false;
     public void Enabletouch() => _isShown = true;

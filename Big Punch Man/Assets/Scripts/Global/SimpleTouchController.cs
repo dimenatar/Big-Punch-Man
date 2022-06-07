@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using System;
 
 public class SimpleTouchController : MonoBehaviour 
 {
@@ -11,15 +11,17 @@ public class SimpleTouchController : MonoBehaviour
 	public delegate void TouchDelegate(Vector2 value);
 	public event TouchDelegate TouchEvent;
 
-	public delegate void TouchStateDelegate(bool touchPresent);
-	public event TouchStateDelegate TouchStateEvent;
+	public event Action OnBeginDrag;
+	public event Action OnEndDrag;
 
 	// PRIVATE
 	[SerializeField] private RectTransform joystickArea;
-	private bool touchPresent = false;
+	private bool _touchPresent = false;
 	private Vector2 movementVector;
 
 	private bool _isDragging = false;
+
+	public bool TouchPresent => _touchPresent;
 
     private void Update()
     {
@@ -40,23 +42,23 @@ public class SimpleTouchController : MonoBehaviour
 	public void BeginDrag()
 	{
 		_isDragging = true;
-		touchPresent = true;
-        TouchStateEvent?.Invoke(touchPresent);
+		_touchPresent = true;
+		OnBeginDrag?.Invoke();
     }
 
 	public void EndDrag()
 	{
 		_isDragging = false;
-		touchPresent = false;
+		_touchPresent = false;
 		movementVector = joystickArea.anchoredPosition = Vector2.zero;
 
-        TouchStateEvent?.Invoke(touchPresent);
+		OnEndDrag?.Invoke();
 
     }
 
 	public void OnValueChanged(Vector2 value)
 	{
-		if(touchPresent)
+		if(_touchPresent)
 		{
 			// convert the value between 1 0 to -1 +1
 			movementVector.x = ((1 - value.x) - 0.5f) * 2f;

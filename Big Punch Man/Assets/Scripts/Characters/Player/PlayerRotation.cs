@@ -14,6 +14,9 @@ public class PlayerRotation : MonoBehaviour
 
     private void RotatePlayer()
     {
-        _transformToRotate.localRotation = Quaternion.Euler(new Vector3(_transformToRotate.eulerAngles.x, 0, Mathf.Atan2(_joystick.GetTouchPosition.x, _joystick.GetTouchPosition.y) * Mathf.Rad2Deg));
+        if (_joystick.TouchPresent)
+        {
+            _transformToRotate.localRotation = Quaternion.Euler(new Vector3(_transformToRotate.eulerAngles.x, 0, Mathf.Atan2(_joystick.GetTouchPosition.x, _joystick.GetTouchPosition.y) * Mathf.Rad2Deg));
+        }
     }
 }
