@@ -9,6 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyFight))]
 [RequireComponent(typeof(EnemyAnimations))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(MaterialChanger))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _delayToHit;
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     private EnemyMove _enemyMove;
     private EnemyAnimations _enemyAnimations;
     private Ragdoll _ragdoll;
-    private Animator _animator;
+    private MaterialChanger _materialChanger;
 
     public event Action<Player> OnPlayerEntersTrigger;
     public event Action<Player> OnPlayerExitsTrigger;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
         _enemyMove = GetComponent<EnemyMove>();
         _enemyAnimations = GetComponent<EnemyAnimations>();
         _ragdoll = GetComponent<Ragdoll>();
+        _materialChanger = GetComponent<MaterialChanger>();
 
         OnPlayerEntersTrigger += (player) => _enemyAnimations.Fight();
         OnPlayerEntersTrigger += (player) => _enemyMove.StopChasing();
@@ -45,10 +47,11 @@ public class Enemy : MonoBehaviour
 
         OnStartChasing += _enemyMove.StartChasing;
         OnStartChasing += _enemyAnimations.Run;
-
-        _ragdoll.OnFall += () => OnDied?.Invoke();
+        OnDied += _materialChanger.ChangeMaterialToDead;
         OnDied += () => Destroy(GetComponent<NavMeshAgent>());
+        OnDied += () => gameObject.AddComponent<BodyRemover>();
         OnDied += () => Destroy(this);
+        _ragdoll.OnFall += () => OnDied?.Invoke();
     }
 
     private void Start()
