@@ -52,9 +52,8 @@ public class Enemy : MonoBehaviour
         OnStartChasing += _enemyMove.StartChasing;
         OnStartChasing += _enemyAnimations.Run;
         OnDied += _materialChanger.ChangeMaterialToDead;
-        OnDied += () => Destroy(GetComponent<NavMeshAgent>());
-        OnDied += () => gameObject.AddComponent<BodyRemover>();
         OnDied += () => Destroy(this);
+        OnDied += () => gameObject.AddComponent<BodyRemover>();
         _ragdoll.OnFall += () => OnDied?.Invoke();
     }
 
