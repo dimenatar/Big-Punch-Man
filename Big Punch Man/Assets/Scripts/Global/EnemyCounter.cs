@@ -25,13 +25,20 @@ public class EnemyCounter : MonoBehaviour
 
     private void Awake()
     {
-        _stages.OnStageChanged += (stage) => _currentStage = stage;
-        _currentStage.EnemyGroups.Groups.ForEach(group => group.Enemies.ForEach(enemy => enemy.OnDied += ReduceCounter));
+        _stages.OnStageChanged += Initialise;
+        
     }
 
     private void Start()
     {
-        _currentAmount = StartAmount;
+
+    }
+
+    private void Initialise(Stage stage)
+    {
+        _currentStage = stage;
+        _currentStage.EnemyGroups.Groups.ForEach(group => group.Enemies.ForEach(enemy => enemy.OnDied += ReduceCounter));
+        SetStartAmount(_currentStage.EnemyGroups.GetEnemyAmount());
     }
 
     public void ReduceCounter()
