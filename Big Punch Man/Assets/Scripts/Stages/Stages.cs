@@ -34,6 +34,7 @@ public class Stages : MonoBehaviour
         print(_currentStage.StageOrder);
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
+        _currentStage.EnemyGroups.InitialiseGroups();
     }
 
     public void UserCompletedStage()

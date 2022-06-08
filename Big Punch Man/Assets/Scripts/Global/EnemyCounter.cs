@@ -29,11 +29,6 @@ public class EnemyCounter : MonoBehaviour
         
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Initialise(Stage stage)
     {
         _currentStage = stage;

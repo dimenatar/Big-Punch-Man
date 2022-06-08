@@ -56,12 +56,12 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        Initialise(_damage, _delayToHit, _player, _delayNewPoint);
+        //Initialise(_damage, _delayToHit, _player, _delayNewPoint);
 
-        Enable();
+        //Enable();
     }
 
-    public void Initialise(int damage, float delayToHit, Transform player, float delayToGetNewPoint)
+    public void Initialise(Transform player, int damage = 1, float delayToHit = 0.5f,  float delayToGetNewPoint = 0.2f)
     {
         _enemyFight.Initialise(damage, delayToHit);
         _enemyMove.Initialise(player, delayToGetNewPoint);
