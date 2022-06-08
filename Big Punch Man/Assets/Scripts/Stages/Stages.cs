@@ -5,6 +5,7 @@ using System;
 
 public class Stages : MonoBehaviour
 {
+    [SerializeField] private Finish _finish;
     [SerializeField] private List<Stage> _stages;
 
     private Stage _currentStage;
@@ -17,6 +18,12 @@ public class Stages : MonoBehaviour
 
     public event Action<Stage> OnStageChanged;
     public event Action<int> OnStageIndexChanged;
+
+    private void Awake()
+    {
+        _finish.OnFinish += UserCompletedStage;
+        OnStageChanged += _finish.SubscribeFinish;
+    }
 
     public void Initialise(int stage, bool isUserCompleteAllLevels)
     {
@@ -37,7 +44,7 @@ public class Stages : MonoBehaviour
         _currentStage.EnemyGroups.InitialiseGroups();
     }
 
-    public void UserCompletedStage()
+    private void UserCompletedStage()
     {
         // if user already completed all stages we keep randomizing "new" stages
         if (_isUserCompletedAllStages)

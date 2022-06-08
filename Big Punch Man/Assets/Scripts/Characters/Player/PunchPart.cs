@@ -18,7 +18,6 @@ public class PunchPart : MonoBehaviour
     {
         if (other.GetComponent<Enemy>())
         {
-            print("punch" + other.name);
             other.GetComponent<Ragdoll>().PunchRigidbody();
         }
     }

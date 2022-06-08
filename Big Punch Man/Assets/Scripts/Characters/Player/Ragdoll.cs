@@ -44,7 +44,6 @@ public class Ragdoll : MonoBehaviour
 
     public void PunchRigidbody()
     {
-        print("PUNCH");
         Fall();
         _rigidBodyToPunch.AddForce(-transform.forward * _forceToPunch, ForceMode.Impulse);
     }
