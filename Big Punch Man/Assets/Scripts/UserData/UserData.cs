@@ -5,15 +5,19 @@ using UnityEngine;
 [System.Serializable]
 public class UserData
 {
-    private int _currentStage = 1;
-    private bool _isCompletedAllStages;
+    public int CurrentStage { get; private set;}
+    public bool IsCompletedAllStages { get; private set; }
 
-    public int CurrentStage => _currentStage;
-    public bool IsCompletedAllStages => _isCompletedAllStages;
+    public UserData()
+    {
+        CurrentStage = 1;
+        IsCompletedAllStages = false;
+    }
 
     public void SaveData(int stage, bool completed)
     {
-        _currentStage = stage;
-        _isCompletedAllStages = completed;
+        CurrentStage = stage;
+        IsCompletedAllStages = completed;
     }
+
 }

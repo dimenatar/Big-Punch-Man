@@ -59,7 +59,8 @@ public class Ragdoll : MonoBehaviour
         {
             rigidbody.isKinematic = state;
         }
-        GetComponent<Rigidbody>().isKinematic = !state;
+        if (!_isEnemy)
+            GetComponent<Rigidbody>().isKinematic = !state;
     }
 
     private void SetColliderState(bool state)

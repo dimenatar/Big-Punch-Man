@@ -35,6 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private void FinalRotate()
     {
         _isMoving = false;
-        _playerTransform.DORotate(new Vector3(0, _finalYRotation, 0), _finalRotationDuration);
+        _playerTransform.DORotate(new Vector3(0, _finalYRotation, 0), _finalRotationDuration).SetUpdate(true);
     }
 }

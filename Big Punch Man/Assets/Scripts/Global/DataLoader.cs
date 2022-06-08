@@ -23,12 +23,15 @@ public class DataLoader : MonoBehaviour
         if (JsonSaver.IsExistsSave("UserData"))
         {
             _userData = JsonSaver.Load<UserData>("UserData");
+            print($"_userData.CurrentStage {_userData.CurrentStage}");
+            print("exists");
         }
         else
         {
             _userData = new UserData();
             JsonSaver.Save<UserData>(_userData ,"UserData");
         }
+
         _stages.Initialise(_userData.CurrentStage, _userData.IsCompletedAllStages);
     }
 

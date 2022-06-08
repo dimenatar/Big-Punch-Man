@@ -13,6 +13,7 @@ public class BodyRemover : MonoBehaviour
     private IEnumerator Remove()
     {
         yield return new WaitForSeconds(6);
+        gameObject.transform.parent = null;
         gameObject.transform.DOScale(0, 1).OnComplete(() => Destroy(gameObject));
     }
 }

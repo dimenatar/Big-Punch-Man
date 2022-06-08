@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class Stages : MonoBehaviour
 {
     [SerializeField] private Finish _finish;
     [SerializeField] private List<Stage> _stages;
+    [SerializeField] private NavMeshSurface _surface;
 
     private Stage _currentStage;
     private int _currentStageIndex;
@@ -27,6 +29,7 @@ public class Stages : MonoBehaviour
 
     public void Initialise(int stage, bool isUserCompleteAllLevels)
     {
+        print(stage);
         _isUserCompletedAllStages = isUserCompleteAllLevels;
         if (!isUserCompleteAllLevels)
         {
@@ -38,6 +41,7 @@ public class Stages : MonoBehaviour
         }
         print(_currentStage.StageOrder + _currentStage.Location.name);
         _currentStage.Location.SetActive(true);
+        _surface.BuildNavMesh();
         _currentStageIndex = stage;
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
