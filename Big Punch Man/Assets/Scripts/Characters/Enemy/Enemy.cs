@@ -10,6 +10,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyAnimations))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(MaterialChanger))]
+[RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _delayToHit;
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     private EnemyAnimations _enemyAnimations;
     private Ragdoll _ragdoll;
     private MaterialChanger _materialChanger;
+    private Rigidbody _rigidBody;
 
     public event Action<Player> OnPlayerEntersTrigger;
     public event Action<Player> OnPlayerExitsTrigger;
@@ -36,6 +38,7 @@ public class Enemy : MonoBehaviour
         _enemyAnimations = GetComponent<EnemyAnimations>();
         _ragdoll = GetComponent<Ragdoll>();
         _materialChanger = GetComponent<MaterialChanger>();
+        _rigidBody = GetComponent<Rigidbody>();
 
         OnPlayerEntersTrigger += (player) => _enemyAnimations.Fight();
         OnPlayerEntersTrigger += (player) => _enemyMove.StopChasing();
@@ -45,6 +48,7 @@ public class Enemy : MonoBehaviour
         OnPlayerExitsTrigger += (player) => _enemyMove.StartChasing();
         OnPlayerExitsTrigger += _enemyFight.StopFight;
 
+        OnStartChasing += () => _rigidBody.isKinematic = false;
         OnStartChasing += _enemyMove.StartChasing;
         OnStartChasing += _enemyAnimations.Run;
         OnDied += _materialChanger.ChangeMaterialToDead;

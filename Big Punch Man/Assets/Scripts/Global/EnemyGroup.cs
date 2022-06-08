@@ -26,5 +26,6 @@ public class EnemyGroup : MonoBehaviour
     public void Initialise(Transform player)
     {
         _enemies.ForEach(enemy => enemy.Initialise(player));
+        print($"{gameObject.name} INITIALISED");
     }
 }

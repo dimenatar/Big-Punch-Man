@@ -25,8 +25,16 @@ public class EnemyMove : MonoBehaviour
         _delayToGetNewPoint = delayToGetNewPoint;
     }
 
-    public void StartChasing() => StartCoroutine(MoveToPlayer());
-    public void StopChasing() => StopCoroutine(MoveToPlayer());
+    public void StartChasing()
+    {
+        _agent.enabled = true;
+        StartCoroutine(MoveToPlayer());
+    }
+    public void StopChasing()
+    {
+        StopCoroutine(MoveToPlayer());
+        _agent.enabled = false;
+    }
 
     private IEnumerator MoveToPlayer()
     {

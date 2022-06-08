@@ -28,10 +28,10 @@ public class Stages : MonoBehaviour
         else
         {
             _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
-            _currentStage.Location.SetActive(true);
         }
+        print(_currentStage.StageOrder + _currentStage.Location.name);
+        _currentStage.Location.SetActive(true);
         _currentStageIndex = stage;
-        print(_currentStage.StageOrder);
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
         _currentStage.EnemyGroups.InitialiseGroups();
