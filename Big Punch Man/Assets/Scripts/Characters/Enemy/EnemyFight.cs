@@ -10,16 +10,7 @@ public class EnemyFight : MonoBehaviour
     private int _damage;
     private float _delayToHit;
 
-    public event Action OnHit;
-
-    public bool _FIGHT;
-
-    private void Update()
-    {
-        if (_FIGHT)
-        {
-        }
-    }
+    public bool _isInFight;
 
     public void Initialise(int damage, float delayToHit)
     { 
@@ -34,16 +25,15 @@ public class EnemyFight : MonoBehaviour
 
     public void StartFight(Player player)
     {
-        if (!_FIGHT)
+        if (!_isInFight)
         {
-            _FIGHT = true;
+            _isInFight = true;
             StartCoroutine(FightWithEnemy(player));
         }
     }
     public void StopFight(Player player)
     {
-        _FIGHT = false;
-        //StopCoroutine(FightWithEnemy(player));
+        _isInFight = false;
         StopAllCoroutines();
     }
 

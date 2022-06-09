@@ -12,16 +12,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private float _speed;
 
-    [SerializeField] private float _finalRotationDuration = 0.5f;
-    [SerializeField] private float _finalYRotation;
-
-    private Transform _playerTransform;
     private bool _isMoving = true;
 
     private void Awake()
     {
-        _playerTransform = transform;
-        _finish.OnFinish += FinalRotate;
+        _finish.OnFinish += Final;
     }
 
     private void FixedUpdate()
@@ -32,10 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 ConvertYVelocityToZ(Vector2 touchPos) => new Vector3(touchPos.x, 0, touchPos.y);
 
-    private void FinalRotate()
+    private void Final()
     {
         _isMoving = false;
         Destroy(_joystick.gameObject);
-        _playerTransform.DORotate(new Vector3(0, _finalYRotation, 0), _finalRotationDuration).SetUpdate(true);
     }
 }
