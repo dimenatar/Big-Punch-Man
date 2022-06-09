@@ -7,11 +7,17 @@ public class EnemyGroupTrigger : MonoBehaviour
 {
     public event Action OnActivate;
 
+    private bool _isActivated;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>())
+        if (!_isActivated)
         {
-            OnActivate?.Invoke();
+            if (other.GetComponent<Player>())
+            {
+                OnActivate?.Invoke();
+                _isActivated = true;
+            }
         }
     }
 }

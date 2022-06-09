@@ -41,10 +41,10 @@ public class Stages : MonoBehaviour
         }
         print(_currentStage.StageOrder + _currentStage.Location.name);
         _currentStage.Location.SetActive(true);
-        _surface.BuildNavMesh();
         _currentStageIndex = stage;
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
+        _surface.BuildNavMesh();
         _currentStage.EnemyGroups.InitialiseGroups();
     }
 

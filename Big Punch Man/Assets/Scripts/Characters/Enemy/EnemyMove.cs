@@ -30,16 +30,18 @@ public class EnemyMove : MonoBehaviour
         _agent.enabled = true;
         StartCoroutine(MoveToPlayer());
     }
+
     public void StopChasing()
     {
         StopCoroutine(MoveToPlayer());
         _agent.enabled = false;
     }
-
+     
     private IEnumerator MoveToPlayer()
     {
         while (true)
         {
+            if (_agent.isActiveAndEnabled)
             _agent.SetDestination(_player.position);
             yield return new WaitForSeconds(_delayToGetNewPoint);
         }

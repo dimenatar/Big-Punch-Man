@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _delayNewPoint;
 
+    public bool _trigger;
 
     private EnemyFight _enemyFight;
     private EnemyMove _enemyMove;
@@ -43,10 +44,12 @@ public class Enemy : MonoBehaviour
         OnPlayerEntersTrigger += (player) => _enemyAnimations.Fight();
         OnPlayerEntersTrigger += (player) => _enemyMove.StopChasing();
         OnPlayerEntersTrigger += _enemyFight.StartFight;
+        OnPlayerEntersTrigger += (player) => _trigger = true;
 
+        OnPlayerExitsTrigger += _enemyFight.StopFight;
         OnPlayerExitsTrigger += (player) => _enemyAnimations.Run();
         OnPlayerExitsTrigger += (player) => _enemyMove.StartChasing();
-        OnPlayerExitsTrigger += _enemyFight.StopFight;
+        OnPlayerExitsTrigger += (player) => _trigger = false;
 
         OnStartChasing += () => _rigidBody.isKinematic = false;
         OnStartChasing += _enemyMove.StartChasing;
@@ -83,8 +86,13 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //print(other.gameObject.name);
         if (other.GetComponent<Player>())
+        {
+            print("≈¡¿“‹, ¿’”≈“¸");
             OnPlayerExitsTrigger?.Invoke(other.GetComponent<Player>());
+
+        }
     }
 
     private void OnDestroy()

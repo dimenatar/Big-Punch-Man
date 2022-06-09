@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class EndPanel : MonoBehaviour
 {
+    [SerializeField] private TouchPosition _touchPosition;
     [SerializeField] private Stages _stages;
     [SerializeField] private Finish _finish;
     [SerializeField] private Player _player;
@@ -30,6 +31,7 @@ public class EndPanel : MonoBehaviour
     {
         _player.OnDied += () => ShowPanel(false);
         _finish.OnFinish += () => ShowPanel(true);
+        _finish.OnFinish += _touchPosition.DisalbeTouch;
     }
 
     private void ShowPanel(bool win)
