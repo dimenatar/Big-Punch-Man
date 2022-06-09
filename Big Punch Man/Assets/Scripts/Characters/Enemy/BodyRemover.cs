@@ -1,19 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using UnityEngine;
 
 public class BodyRemover : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] private Transform _armature;
+
+    public void Initialise()
     {
+        _armature.parent = null;
         StartCoroutine(Remove());
     }
 
     private IEnumerator Remove()
     {
         yield return new WaitForSeconds(6);
-        gameObject.transform.parent = null;
-        gameObject.transform.DOScale(0, 1).OnComplete(() => Destroy(gameObject));
+        _armature.parent = null;
+        _armature.DOScale(0, 1).OnComplete(() => Destroy(_armature.gameObject));
+        Destroy(gameObject, 1);
     }
 }

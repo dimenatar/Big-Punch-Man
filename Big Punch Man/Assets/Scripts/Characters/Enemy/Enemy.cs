@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Ragdoll))]
 [RequireComponent(typeof(EnemyMove))]
@@ -55,16 +52,9 @@ public class Enemy : MonoBehaviour
         OnStartChasing += _enemyMove.StartChasing;
         OnStartChasing += _enemyAnimations.Run;
         OnDied += _materialChanger.ChangeMaterialToDead;
-        OnDied += () => gameObject.AddComponent<BodyRemover>();
+        OnDied += GetComponent<BodyRemover>().Initialise;
         OnDied += () => Destroy(this);
         _ragdoll.OnFall += () => OnDied?.Invoke();
-    }
-
-    private void Start()
-    {
-        //Initialise(_damage, _delayToHit, _player, _delayNewPoint);
-
-        //Enable();
     }
 
     public void Initialise(Transform player, int damage = 1, float delayToHit = 0.5f, float delayToGetNewPoint = 0.2f)

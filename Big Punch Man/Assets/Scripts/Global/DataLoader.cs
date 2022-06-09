@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DataLoader : MonoBehaviour
 {
@@ -9,15 +6,15 @@ public class DataLoader : MonoBehaviour
 
     private UserData _userData;
 
-    private void Awake()
-    {
-        // Application.quitting += SaveData;
-        SceneManager.sceneUnloaded += (s) => SaveData();
-    }
-
     void Start()
     {
         LoadData();
+    }
+
+    public void SaveData()
+    {
+        _userData.SaveData(_stages.CurrentStageIndex, _stages.IsUserCompletedAllStages);
+        JsonSaver.Save<UserData>(_userData, "UserData");
     }
 
     private void LoadData()
@@ -33,11 +30,5 @@ public class DataLoader : MonoBehaviour
             _userData = new UserData();
         }
         _stages.Initialise(_userData.CurrentStage, _userData.IsCompletedAllStages);
-    }
-
-    private void SaveData()
-    {
-        _userData.SaveData(_stages.CurrentStageIndex, _stages.IsUserCompletedAllStages);
-        JsonSaver.Save<UserData>(_userData, "UserData");
     }
 }

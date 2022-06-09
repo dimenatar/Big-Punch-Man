@@ -1,11 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.AI;
 
 public class Stages : MonoBehaviour
 {
+    [SerializeField] private DataLoader _loader;
     [SerializeField] private Finish _finish;
     [SerializeField] private List<Stage> _stages;
     [SerializeField] private NavMeshSurface _surface;
@@ -29,6 +29,7 @@ public class Stages : MonoBehaviour
     public void Initialise(int stage, bool isUserCompleteAllLevels)
     {
         print(stage);
+        _currentStageIndex = stage;
         _isUserCompletedAllStages = isUserCompleteAllLevels;
         if (!isUserCompleteAllLevels)
         {
@@ -38,9 +39,8 @@ public class Stages : MonoBehaviour
         {
             _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
         }
-        print(_currentStage.StageOrder + _currentStage.Location.name);
+        print(_currentStage.StageOrder + _currentStage.Location.name + _currentStageIndex);
         _currentStage.Location.SetActive(true);
-        _currentStageIndex = stage;
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
         _surface.BuildNavMesh();
@@ -49,9 +49,11 @@ public class Stages : MonoBehaviour
 
     public void UserCompletedStage()
     {
+        print($"CURRENT {_currentStage.StageOrder}");
         // if user already completed all stages we keep randomizing "new" stages
         if (_isUserCompletedAllStages)
         {
+            print("1");
             _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
             _currentStageIndex++;
         }
@@ -60,21 +62,24 @@ public class Stages : MonoBehaviour
             // if user completed final stage, we write about it and random next
             if (IsFinalStage(CurrentStage))
             {
+                print("2");
                 _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
                 _currentStageIndex++;
                 _isUserCompletedAllStages = true;
             }
             else
             {
-                _currentStage = _stages[_currentStageIndex];
+                print($"3 {_currentStage.StageOrder} {_stages[_currentStage.StageOrder]} ");
+                _currentStage = _stages[_currentStage.StageOrder];
                 _currentStageIndex = _currentStage.StageOrder;
             }
         }
+        _loader.SaveData();
         print($"NEW LEVEL {_currentStage.StageOrder}");
     }
 
     private bool IsFinalStage(Stage stage)
     {
-        return _stages.IndexOf(stage) == _stages.Count;
+        return _stages.IndexOf(stage) == _stages.Count - 1;
     }
 }
