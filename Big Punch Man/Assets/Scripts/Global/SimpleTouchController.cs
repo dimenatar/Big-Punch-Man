@@ -27,7 +27,7 @@ public class SimpleTouchController : MonoBehaviour
     {
 		if (_isDragging)
         {
-			var localPos = transform.InverseTransformPoint(Input.mousePosition) + new Vector3(150, -150, 0);
+			var localPos = transform.InverseTransformPoint(Input.mousePosition) + new Vector3(70, -70, 0);
 			//joystickArea.localPosition = new Vector2(Mathf.Clamp(localPos.x, 60, 320), Mathf.Clamp(localPos.y, -320, -60));
 			joystickArea.localPosition = localPos;
         }

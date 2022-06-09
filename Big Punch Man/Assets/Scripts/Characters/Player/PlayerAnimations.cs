@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    [SerializeField] private PlayerUltimate _playerUltimate;
     [SerializeField] private SimpleTouchController _controller;
     [SerializeField] private Animator _animator;
     [SerializeField] private int _punchAnimationsAmount;
     [SerializeField] private HitRandomizer _hitRandomizer;
     [SerializeField] private Finish _finish;
 
-    #region Animations hashes
     private readonly int IDLE = Animator.StringToHash("Idle");
     private readonly int RUN = Animator.StringToHash("Run");
     private readonly int PUNCH = Animator.StringToHash("Punch");
     private readonly int FINISH = Animator.StringToHash("Win");
     private readonly int PUNCH_INDEX = Animator.StringToHash("PunchIndex");
-    private readonly int ULTA_START = Animator.StringToHash("UltaStart");
-    private readonly int ULTA_END = Animator.StringToHash("UltaEnd");
-    #endregion
+
 
     private void Awake()
     {
@@ -27,8 +23,6 @@ public class PlayerAnimations : MonoBehaviour
         _controller.OnEndDrag += () => _animator.SetTrigger(IDLE);
         _hitRandomizer.OnHitChosen += Punch;
         _finish.OnFinish += Win;
-        _playerUltimate.OnUltimateStarted += () => _animator.SetTrigger(ULTA_START);
-        _playerUltimate.OnUltimateCompleted += () => _animator.SetTrigger(ULTA_END);
     }
 
     private void Punch(Hits hit)
