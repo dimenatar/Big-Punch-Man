@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class PunchPart : MonoBehaviour
 {
     [SerializeField] private Collider _collider;
+
+    public event Action OnEnemyPunched;
 
     public void Enable(float delayToDisable)
     {
@@ -19,6 +22,7 @@ public class PunchPart : MonoBehaviour
         if (other.GetComponent<Enemy>())
         {
             other.GetComponent<Ragdoll>().PunchRigidbody();
+            OnEnemyPunched?.Invoke();
         }
     }
 }
