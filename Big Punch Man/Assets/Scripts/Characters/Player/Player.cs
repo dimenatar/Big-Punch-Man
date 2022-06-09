@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        print("HIT");
         _health -= damage;
         if (_health <= 0)
         {

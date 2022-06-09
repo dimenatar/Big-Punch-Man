@@ -89,9 +89,7 @@ public class Enemy : MonoBehaviour
         //print(other.gameObject.name);
         if (other.GetComponent<Player>())
         {
-            print("≈¡¿“‹, ¿’”≈“¸");
             OnPlayerExitsTrigger?.Invoke(other.GetComponent<Player>());
-
         }
     }
 

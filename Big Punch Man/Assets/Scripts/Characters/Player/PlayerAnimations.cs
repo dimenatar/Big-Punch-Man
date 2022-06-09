@@ -16,8 +16,8 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int IDLE = Animator.StringToHash("Idle");
     private readonly int RUN = Animator.StringToHash("Run");
     private readonly int PUNCH = Animator.StringToHash("Punch");
-    private readonly int FINISH = Animator.StringToHash("Win");
     private readonly int PUNCH_INDEX = Animator.StringToHash("PunchIndex");
+    private readonly int FINISH = Animator.StringToHash("Win");
     #endregion
 
     private void Awake()
@@ -42,6 +42,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Win()
     {
+        _animator.SetLayerWeight(2, 0);
         _animator.SetTrigger(FINISH);
     }
 

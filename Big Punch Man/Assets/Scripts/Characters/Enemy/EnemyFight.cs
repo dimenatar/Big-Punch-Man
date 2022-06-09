@@ -18,7 +18,6 @@ public class EnemyFight : MonoBehaviour
     {
         if (_FIGHT)
         {
-            //print("Как так то");
         }
     }
 
@@ -44,7 +43,6 @@ public class EnemyFight : MonoBehaviour
     public void StopFight(Player player)
     {
         _FIGHT = false;
-        print("STOP FIGHT");
         //StopCoroutine(FightWithEnemy(player));
         StopAllCoroutines();
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataLoader : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class DataLoader : MonoBehaviour
 
     private void Awake()
     {
-        Application.quitting += SaveData;
+        // Application.quitting += SaveData;
+        SceneManager.sceneUnloaded += (s) => SaveData();
     }
 
     void Start()
@@ -29,9 +31,7 @@ public class DataLoader : MonoBehaviour
         else
         {
             _userData = new UserData();
-            JsonSaver.Save<UserData>(_userData ,"UserData");
         }
-
         _stages.Initialise(_userData.CurrentStage, _userData.IsCompletedAllStages);
     }
 

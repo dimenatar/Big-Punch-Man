@@ -23,7 +23,6 @@ public class Stages : MonoBehaviour
 
     private void Awake()
     {
-        _finish.OnFinish += UserCompletedStage;
         OnStageChanged += _finish.SubscribeFinish;
     }
 
@@ -48,7 +47,7 @@ public class Stages : MonoBehaviour
         _currentStage.EnemyGroups.InitialiseGroups();
     }
 
-    private void UserCompletedStage()
+    public void UserCompletedStage()
     {
         // if user already completed all stages we keep randomizing "new" stages
         if (_isUserCompletedAllStages)
@@ -71,6 +70,7 @@ public class Stages : MonoBehaviour
                 _currentStageIndex = _currentStage.StageOrder;
             }
         }
+        print($"NEW LEVEL {_currentStage.StageOrder}");
     }
 
     private bool IsFinalStage(Stage stage)
