@@ -52,8 +52,8 @@ public class Enemy : MonoBehaviour
         OnStartChasing += _enemyMove.StartChasing;
         OnStartChasing += _enemyAnimations.Run;
         OnDied += _materialChanger.ChangeMaterialToDead;
-        OnDied += () => Destroy(this);
         OnDied += () => gameObject.AddComponent<BodyRemover>();
+        OnDied += () => Destroy(this);
         _ragdoll.OnFall += () => OnDied?.Invoke();
     }
 
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         //Enable();
     }
 
-    public void Initialise(Transform player, int damage = 1, float delayToHit = 0.5f,  float delayToGetNewPoint = 0.2f)
+    public void Initialise(Transform player, int damage = 1, float delayToHit = 0.5f, float delayToGetNewPoint = 0.2f)
     {
         _enemyFight.Initialise(damage, delayToHit);
         _enemyMove.Initialise(player, delayToGetNewPoint);
@@ -78,13 +78,13 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Player>())
-        OnPlayerEntersTrigger?.Invoke(other.GetComponent<Player>());
+            OnPlayerEntersTrigger?.Invoke(other.GetComponent<Player>());
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<Player>())
-        OnPlayerExitsTrigger?.Invoke(other.GetComponent<Player>());
+            OnPlayerExitsTrigger?.Invoke(other.GetComponent<Player>());
     }
 
     private void OnDestroy()

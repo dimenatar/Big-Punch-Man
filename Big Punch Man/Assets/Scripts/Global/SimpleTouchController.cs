@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class SimpleTouchController : MonoBehaviour 
+public class SimpleTouchController : MonoBehaviour
 {
 
 	[SerializeField] private Camera _main;
@@ -23,19 +23,19 @@ public class SimpleTouchController : MonoBehaviour
 
 	public bool TouchPresent => _touchPresent;
 
-    private void Update()
-    {
+	private void Update()
+	{
 		if (_isDragging)
-        {
-			var localPos = transform.InverseTransformPoint(Input.mousePosition) + new Vector3(70, -70, 0);
+		{
+			var localPos = transform.InverseTransformPoint(Input.mousePosition) + new Vector3(150, -150, 0);
 			//joystickArea.localPosition = new Vector2(Mathf.Clamp(localPos.x, 60, 320), Mathf.Clamp(localPos.y, -320, -60));
 			joystickArea.localPosition = localPos;
-        }
+		}
 	}
 
-    public Vector2 GetTouchPosition
+	public Vector2 GetTouchPosition
 	{
-		get { return movementVector;}
+		get { return movementVector; }
 	}
 
 
@@ -44,7 +44,7 @@ public class SimpleTouchController : MonoBehaviour
 		_isDragging = true;
 		_touchPresent = true;
 		OnBeginDrag?.Invoke();
-    }
+	}
 
 	public void EndDrag()
 	{
@@ -54,19 +54,18 @@ public class SimpleTouchController : MonoBehaviour
 
 		OnEndDrag?.Invoke();
 
-    }
+	}
 
 	public void OnValueChanged(Vector2 value)
 	{
-		if(_touchPresent)
+		if (_touchPresent)
 		{
 			// convert the value between 1 0 to -1 +1
 			movementVector.x = ((1 - value.x) - 0.5f) * 2f;
 			movementVector.y = ((1 - value.y) - 0.5f) * 2f;
 
-            TouchEvent?.Invoke(movementVector);
-        }
+			TouchEvent?.Invoke(movementVector);
+		}
 
 	}
-
 }
