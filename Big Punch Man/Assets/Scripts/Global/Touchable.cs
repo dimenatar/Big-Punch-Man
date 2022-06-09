@@ -3,9 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 // Touchable component
-public class Touchable : Text
+public class Touchable : Text, IPointerDownHandler
 {
+    public int asd;
+    public event UnityAction OnClick;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnClick?.Invoke();
+    }
+
     protected override void Awake()
     {
         base.Awake();

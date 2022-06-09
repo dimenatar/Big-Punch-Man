@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerAnimations : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class PlayerAnimations : MonoBehaviour
         _controller.OnEndDrag += () => _animator.SetTrigger(IDLE);
         _hitRandomizer.OnHitChosen += Punch;
         _finish.OnFinish += Win;
-        _playerUltimate.OnUltimateStarted += () => _animator.SetTrigger(ULTA_START);
-        _playerUltimate.OnUltimateCompleted += () => _animator.SetTrigger(ULTA_END);
+        _playerUltimate.OnUltimateStarted += () => StartCoroutine(ChangeWeight(false));
+        _playerUltimate.OnUltimateCompleted += () => StartCoroutine(ChangeWeight(true));
     }
 
     private void Punch(Hits hit)
@@ -44,5 +45,24 @@ public class PlayerAnimations : MonoBehaviour
     private void Win()
     {
         _animator.SetTrigger(FINISH);
+    }
+
+    private IEnumerator ChangeWeight(bool reduce)
+    {
+        float timer = 0;
+        while (timer < _playerUltimate.GrowAndReduceDuration)
+        {
+            if (!reduce)
+            {
+                _animator.SetLayerWeight(2, timer / _playerUltimate.GrowAndReduceDuration);
+            }
+            else
+            {
+                _animator.SetLayerWeight(2, 1 - timer / _playerUltimate.GrowAndReduceDuration);
+            }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
     }
 }

@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void FinalRotate()
     {
         _isMoving = false;
+        Destroy(_joystick.gameObject);
         _playerTransform.DORotate(new Vector3(0, _finalYRotation, 0), _finalRotationDuration).SetUpdate(true);
     }
 }

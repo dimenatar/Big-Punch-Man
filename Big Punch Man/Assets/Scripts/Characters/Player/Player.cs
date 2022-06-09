@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
 
     public event Action OnDied;
 
+    private void Awake()
+    {
+        OnDied += () => Destroy(gameObject);
+    }
+
     public void TakeDamage(int damage)
     {
         _health -= damage;

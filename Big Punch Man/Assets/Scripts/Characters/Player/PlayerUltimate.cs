@@ -18,6 +18,7 @@ public class PlayerUltimate : MonoBehaviour
     private bool _isInUltimate;
     private float _ultValue;
 
+    public float GrowAndReduceDuration => _growAndReduceDuration;
     public float UltDuration => _ultDuration;
     public float MaxUltValue => _maxUltValue;
     public float UltValue => _ultValue;
@@ -47,16 +48,18 @@ public class PlayerUltimate : MonoBehaviour
 
     private IEnumerator UseUltimate()
     {
-        // delay to grow
-
         OnUltimateStarted?.Invoke();
+        
+        // delay to grow
+        //yield return new WaitForSeconds(_growAndReduceDuration);
+        _ultimatePunchPart.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(_growAndReduceDuration);
         // wait for ultimate ended
         // mainly for animation
-        yield return new WaitForSeconds(_ultValue/_maxUltValue * _ultDuration);
+        yield return new WaitForSeconds(_ultValue/_maxUltValue * _ultDuration - GrowAndReduceDuration * 2);
         OnUltimateCompleted?.Invoke();
         _ultValue = 0;
+
         // delay to reduce animation
         yield return new WaitForSeconds(_growAndReduceDuration);
         OnUltimateEnded?.Invoke();
@@ -99,7 +102,7 @@ public class PlayerUltimate : MonoBehaviour
         _isInUltimate = true;
         _isFullAvailable = false;
         _isHalfAvailable = false;
-        _ultimatePunchPart.gameObject.SetActive(true);
+        
     }
 
     private void UltEnded()

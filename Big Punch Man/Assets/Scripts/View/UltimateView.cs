@@ -42,7 +42,7 @@ public class UltimateView : MonoBehaviour
 
     private void ScaleToZero()
     {
-        float duration = _playerUltimate.UltValue / _playerUltimate.MaxUltValue * _playerUltimate.UltDuration;
+        float duration = (_playerUltimate.UltValue / _playerUltimate.MaxUltValue * _playerUltimate.UltDuration);
         _areaUlt.DOScale(0, duration);
     }
 
