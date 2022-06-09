@@ -13,7 +13,9 @@ public class Ragdoll : MonoBehaviour
 
     private bool _isFallen;
     private Rigidbody[] _rigidbodies;
+    private Collider[] _colliders;
     private bool _isFoundRigids;
+    private bool _isFoundColliders;
 
     public bool IsFallen => _isFallen;
 
@@ -65,19 +67,18 @@ public class Ragdoll : MonoBehaviour
 
     private void SetColliderState(bool state)
     {
-        Collider[] colliders = GetComponentsInChildren<Collider>();
-        foreach (Collider collider in colliders)
+        if (!_isFoundColliders)
+        {
+            _colliders = GetComponentsInChildren<Collider>();
+            _isFoundColliders = true;
+        }
+        foreach (Collider collider in _colliders)
         {
             collider.enabled = state;
         }
-        if (!_isEnemy)
         foreach (Collider collider in _mainColliders)
         {
             collider.enabled = !state;
-        }
-        else
-        {
-            GetComponent<Collider>().enabled = !state;
         }
     }
 }

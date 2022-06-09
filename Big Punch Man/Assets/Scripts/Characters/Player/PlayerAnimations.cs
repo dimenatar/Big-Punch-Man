@@ -18,8 +18,6 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int PUNCH = Animator.StringToHash("Punch");
     private readonly int FINISH = Animator.StringToHash("Win");
     private readonly int PUNCH_INDEX = Animator.StringToHash("PunchIndex");
-    private readonly int ULTA_START = Animator.StringToHash("UltStart");
-    private readonly int ULTA_END = Animator.StringToHash("UltEnd");
     #endregion
 
     private void Awake()
