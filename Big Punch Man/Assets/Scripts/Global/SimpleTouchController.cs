@@ -21,14 +21,16 @@ public class SimpleTouchController : MonoBehaviour
 
 	private bool _isDragging = false;
 
+	public bool IsDragging => _isDragging;
 	public bool TouchPresent => _touchPresent;
 
 	private void Update()
 	{
 		if (_isDragging)
 		{
+			//print(GetTouchPosition);
 			var localPos = transform.InverseTransformPoint(Input.mousePosition) + new Vector3(175, -175, 0);
-			//joystickArea.localPosition = new Vector2(Mathf.Clamp(localPos.x, 60, 320), Mathf.Clamp(localPos.y, -320, -60));
+			joystickArea.localPosition = new Vector2(Mathf.Clamp(localPos.x, 21, 330), Mathf.Clamp(localPos.y, -330, -21));
 			joystickArea.localPosition = localPos;
 		}
 	}
@@ -53,7 +55,6 @@ public class SimpleTouchController : MonoBehaviour
 		movementVector = joystickArea.anchoredPosition = Vector2.zero;
 
 		OnEndDrag?.Invoke();
-
 	}
 
 	public void OnValueChanged(Vector2 value)

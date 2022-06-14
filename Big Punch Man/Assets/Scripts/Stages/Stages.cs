@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -80,6 +81,6 @@ public class Stages : MonoBehaviour
 
     private bool IsFinalStage(Stage stage)
     {
-        return _stages.IndexOf(stage) == _stages.Count - 1;
+        return _stages.IndexOf(_stages.FirstOrDefault(s => s.StageOrder == stage.StageOrder)) == _stages.Count - 1;
     }
 }

@@ -13,21 +13,32 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Finish _finish;
 
     #region Animations hashes
-    private readonly int IDLE = Animator.StringToHash("Idle");
-    private readonly int RUN = Animator.StringToHash("Run");
+    private readonly int RUN = Animator.StringToHash("IsRunning");
     private readonly int PUNCH = Animator.StringToHash("Punch");
     private readonly int PUNCH_INDEX = Animator.StringToHash("PunchIndex");
     private readonly int FINISH = Animator.StringToHash("Win");
+
     #endregion
+
+    public bool _isRunning = false;
 
     private void Awake()
     {
-        _controller.OnBeginDrag += () => _animator.SetTrigger(RUN);
-        _controller.OnEndDrag += () => _animator.SetTrigger(IDLE);
+        //_controller.OnBeginDrag += () => _animator.SetTrigger(RUN);
+        // _controller.TouchEvent += CheckMovementVector;
+        // _controller.OnEndDrag += () => _animator.SetTrigger(IDLE);
+        //_controller.OnEndDrag += () => _isRunning = false;
+
         _hitRandomizer.OnHitChosen += Punch;
+        _finish.OnFinish += () => StopAllCoroutines();
         _finish.OnFinish += Win;
         _playerUltimate.OnUltimateStarted += () => StartCoroutine(ChangeWeight(false));
         _playerUltimate.OnUltimateCompleted += () => StartCoroutine(ChangeWeight(true));
+    }
+
+    private void Update()
+    {
+        _animator.SetBool(RUN, CheckMovementVector(_controller.GetTouchPosition));
     }
 
     private void Punch(Hits hit)
@@ -63,5 +74,15 @@ public class PlayerAnimations : MonoBehaviour
             yield return null;
         }
         
+    }
+
+    private bool CheckMovementVector(Vector2 vector)
+    {
+        return Round(vector, 2) != Vector2.zero;
+    }
+
+    private Vector2 Round(Vector2 vector, int digits)
+    {
+        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.x, digits));
     }
 }

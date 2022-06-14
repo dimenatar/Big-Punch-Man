@@ -9,6 +9,7 @@ public class PlayerRotation : MonoBehaviour
 
     [SerializeField] private float _finalRotationDuration = 0.5f;
     [SerializeField] private float _finalYRotation = 180;
+    [SerializeField] private float _angularSpeed = 10;
 
     private void Awake()
     {
@@ -24,7 +25,11 @@ public class PlayerRotation : MonoBehaviour
     {
         if (_joystick.TouchPresent)
         {
-            _transformToRotate.localRotation = Quaternion.Euler(new Vector3(_transformToRotate.eulerAngles.x, 0, Mathf.Atan2(_joystick.GetTouchPosition.x, _joystick.GetTouchPosition.y) * Mathf.Rad2Deg));
+            if (_joystick.GetTouchPosition != Vector2.zero)
+            {
+                //_transformToRotate.localRotation = Quaternion.Euler(new Vector3(_transformToRotate.eulerAngles.x, 0, Mathf.Atan2(_joystick.GetTouchPosition.x, _joystick.GetTouchPosition.y) * Mathf.Rad2Deg));
+                _transformToRotate.localRotation = Quaternion.Slerp(_transformToRotate.rotation, Quaternion.Euler(new Vector3(_transformToRotate.eulerAngles.x, 0, Mathf.Atan2(_joystick.GetTouchPosition.x, _joystick.GetTouchPosition.y) * Mathf.Rad2Deg)), _angularSpeed * Time.deltaTime);
+            }
         }
     }
 

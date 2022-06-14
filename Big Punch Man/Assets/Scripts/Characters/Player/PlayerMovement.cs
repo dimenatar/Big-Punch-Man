@@ -23,10 +23,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isMoving)
         {
-             _agent.Move(ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed * Time.deltaTime);
-            // print($"{_agent.destination} {_agent.destination + ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed}");
-            //_agent.Move(Vector3.SmoothDamp(_agent.destination - transform.position, _agent.destination + ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed - transform.position, ref _velocity, 0.2f));
-
+            if (CheckMovementVector(_joystick.GetTouchPosition))
+            {
+                _agent.Move(ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed * Time.deltaTime);
+            }
         }
 
     }
@@ -37,5 +37,15 @@ public class PlayerMovement : MonoBehaviour
     {
         _isMoving = false;
         Destroy(_joystick.gameObject);
+    }
+
+    private bool CheckMovementVector(Vector2 vector)
+    {
+        return Round(vector, 2) != Vector2.zero;
+    }
+
+    private Vector2 Round(Vector2 vector, int digits)
+    {
+        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.x, digits));
     }
 }

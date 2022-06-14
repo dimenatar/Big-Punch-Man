@@ -31,8 +31,8 @@ public class TouchPosition : MonoBehaviour
             {
                 // _touch.transform.position = _main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 _touch.transform.position = Input.mousePosition;
-                _touch.SetActive(true);
                 _controller.BeginDrag();
+                _touch.SetActive(true);
                 _isHolding = true;
             }
         }
@@ -44,8 +44,8 @@ public class TouchPosition : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 _isHolding = false;
-                _controller.EndDrag();
                 _touch.SetActive(false);
+                _controller.EndDrag();
             }
         }
     }

@@ -46,7 +46,6 @@ public class EnemyFight : MonoBehaviour
         {
             yield return new WaitForSeconds(_delayToAnimationHit);
             player.TakeDamage(_damage);
-            print(_delayToHit);
             OnHit?.Invoke();
             yield return new WaitForSeconds(_delayToHit);
         }

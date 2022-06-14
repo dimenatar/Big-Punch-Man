@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -12,7 +10,6 @@ public class FinishTrigger : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            print("FINISH");
             OnFinish?.Invoke();
         }
     }
