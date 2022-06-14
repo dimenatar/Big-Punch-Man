@@ -59,8 +59,8 @@ public class Enemy : MonoBehaviour
 
     public void Initialise(Transform player, int damage = 1, float delayToHit = 0.5f, float delayToGetNewPoint = 0.2f)
     {
-        _enemyFight.Initialise(damage, delayToHit);
-        _enemyMove.Initialise(player, delayToGetNewPoint);
+        GetComponent<EnemyFight>().Initialise(damage, _delayToHit);
+        GetComponent<EnemyMove>().Initialise(player, delayToGetNewPoint);
     }
 
     public void Enable()

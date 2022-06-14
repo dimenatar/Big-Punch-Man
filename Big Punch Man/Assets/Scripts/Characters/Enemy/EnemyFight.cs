@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class EnemyFight : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _hit;
+    [SerializeField] private float _delayToAnimationHit;
 
     private int _damage;
     private float _delayToHit;
 
     public bool _isInFight;
 
+    public event Action OnHit;
+
     public void Initialise(int damage, float delayToHit)
     { 
         _damage = damage;
         _delayToHit = delayToHit;
+        print(_delayToHit);
     }
 
     private void OnDestroy()
@@ -41,8 +44,10 @@ public class EnemyFight : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(_delayToAnimationHit);
             player.TakeDamage(_damage);
-            _hit.Play();
+            print(_delayToHit);
+            OnHit?.Invoke();
             yield return new WaitForSeconds(_delayToHit);
         }
     }

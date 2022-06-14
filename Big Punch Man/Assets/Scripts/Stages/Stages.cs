@@ -5,10 +5,11 @@ using UnityEngine.AI;
 
 public class Stages : MonoBehaviour
 {
+    [SerializeField] private Transform _player;
     [SerializeField] private DataLoader _loader;
     [SerializeField] private Finish _finish;
     [SerializeField] private List<Stage> _stages;
-    [SerializeField] private NavMeshSurface _surface;
+    //[SerializeField] private NavMeshSurface _surface;
 
     private Stage _currentStage;
     private int _currentStageIndex;
@@ -39,12 +40,14 @@ public class Stages : MonoBehaviour
         {
             _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
         }
+        var location = Instantiate(_currentStage.gameObject);
+        _currentStage = location.GetComponent<Stage>();
         print(_currentStage.StageOrder + _currentStage.Location.name + _currentStageIndex);
-        _currentStage.Location.SetActive(true);
+        //_currentStage.Location.SetActive(true);
+        _currentStage.EnemyGroups.InitialiseGroups(_player);
         OnStageChanged?.Invoke(CurrentStage);
         OnStageIndexChanged?.Invoke(CurrentStageIndex);
-        _surface.BuildNavMesh();
-        _currentStage.EnemyGroups.InitialiseGroups();
+        //_surface.BuildNavMesh();
     }
 
     public void UserCompletedStage()
@@ -53,7 +56,6 @@ public class Stages : MonoBehaviour
         // if user already completed all stages we keep randomizing "new" stages
         if (_isUserCompletedAllStages)
         {
-            print("1");
             _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
             _currentStageIndex++;
         }
@@ -62,14 +64,12 @@ public class Stages : MonoBehaviour
             // if user completed final stage, we write about it and random next
             if (IsFinalStage(CurrentStage))
             {
-                print("2");
                 _currentStage = _stages[UnityEngine.Random.Range(0, _stages.Count)];
                 _currentStageIndex++;
                 _isUserCompletedAllStages = true;
             }
             else
             {
-                print($"3 {_currentStage.StageOrder} {_stages[_currentStage.StageOrder]} ");
                 _currentStage = _stages[_currentStage.StageOrder];
                 _currentStageIndex = _currentStage.StageOrder;
             }

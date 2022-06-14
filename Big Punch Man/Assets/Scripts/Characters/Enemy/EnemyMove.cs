@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
     private float _delayToGetNewPoint;
-    private Transform _player;
+    public Transform _player;
     private NavMeshAgent _agent;
 
     private void Awake()
@@ -21,7 +21,10 @@ public class EnemyMove : MonoBehaviour
 
     public void Initialise(Transform player, float delayToGetNewPoint)
     {
+        
         _player = player;
+        Debug.LogWarning($"{_player} {player}");
+
         _delayToGetNewPoint = delayToGetNewPoint;
     }
 
@@ -41,6 +44,7 @@ public class EnemyMove : MonoBehaviour
     {
         while (true)
         {
+           // 
             if (_agent.isActiveAndEnabled)
             _agent.SetDestination(_player.position);
             yield return new WaitForSeconds(_delayToGetNewPoint);

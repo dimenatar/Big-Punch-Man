@@ -6,7 +6,7 @@ public class DataLoader : MonoBehaviour
 
     private UserData _userData;
 
-    void Start()
+    private void Start()
     {
         LoadData();
     }

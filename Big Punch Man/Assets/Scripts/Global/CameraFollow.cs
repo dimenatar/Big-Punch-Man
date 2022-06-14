@@ -13,8 +13,10 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private Vector3 _finalCameraAnimatedPosition;
     [SerializeField] private float _finalCameraMoveDuration = 2;
+    [SerializeField] private float _smoothCamera = 0.35f;
 
     private bool _isFollowing = true;
+    private Vector3 _velocity = Vector3.zero;
 
     private void Awake()
     {
@@ -22,10 +24,16 @@ public class CameraFollow : MonoBehaviour
         _finish.OnFinish += DoFinalCameraMove;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (_isFollowing)
-        _camera.position = _playerTransform.position + _cameraDiff;
+        {
+             _camera.position = _playerTransform.position + _cameraDiff;
+            // var position = _playerTransform.position + _cameraDiff;
+            // _camera.position = Vector3.SmoothDamp(_camera.position, position, ref _velocity, _smoothCamera);
+
+        }
+
 
     }
 

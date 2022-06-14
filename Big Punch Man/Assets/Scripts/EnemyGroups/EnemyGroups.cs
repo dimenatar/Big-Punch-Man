@@ -5,11 +5,10 @@ using UnityEngine;
 public class EnemyGroups : MonoBehaviour
 {
     [SerializeField] private List<EnemyGroup> _groups;
-    [SerializeField] private Transform _player;
 
     public List<EnemyGroup> Groups => _groups;
 
-    public void InitialiseGroups() => _groups.ForEach(group => group.Initialise(_player));
+    public void InitialiseGroups(Transform player) => _groups.ForEach(group => group.Initialise(player));
 
     public int GetEnemyAmount()
     {
