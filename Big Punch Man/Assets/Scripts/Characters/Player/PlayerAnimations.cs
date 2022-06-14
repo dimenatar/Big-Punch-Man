@@ -42,8 +42,8 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Win()
     {
-        _animator.SetLayerWeight(2, 0);
         _animator.SetTrigger(FINISH);
+        _animator.SetLayerWeight(2, 0);
     }
 
     private IEnumerator ChangeWeight(bool reduce)

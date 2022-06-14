@@ -1243,7 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303fc666d1738c04aafc1f367fc77586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceToPunch: 50
+  _forceToPunch: 35
   _rigidBodyToPunch: {fileID: 6788896918837465195}
   _mainColliders:
   - {fileID: 5868280662359262969}
