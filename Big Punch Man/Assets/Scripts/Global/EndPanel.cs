@@ -22,10 +22,10 @@ public class EndPanel : MonoBehaviour
     [SerializeField] private float _animationDurationToDefaultScale = 0.3f;
     [SerializeField] private float _animatedScale;
 
-    private const string LOSE_TEXT = "FAILED";
+    private const string LOSE_TEXT = "FAILED!";
     private const string LOSE_BUTTON = "RESTART";
 
-    private const string WIN_TEXT = "COMPLETED";
+    private const string WIN_TEXT = "COMPLETED!";
     private const string WIN_BUTTON = "NEXT";
 
     private void Awake()
