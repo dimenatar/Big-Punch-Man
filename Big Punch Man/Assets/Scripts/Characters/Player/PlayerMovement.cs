@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (CheckMovementVector(_joystick.GetTouchPosition))
             {
-                _agent.Move(ConvertYVelocityToZ(_joystick.GetTouchPosition) * _speed * Time.deltaTime);
+                
+                _agent.Move(_speed * Time.deltaTime * ConvertYVelocityToZ(_joystick.GetTouchPosition));
             }
         }
 
@@ -36,16 +37,15 @@ public class PlayerMovement : MonoBehaviour
     private void Final()
     {
         _isMoving = false;
-        //Destroy(_joystick.gameObject);
     }
 
     private bool CheckMovementVector(Vector2 vector)
     {
-        return Round(vector, 2) != Vector2.zero;
+         return Round(vector, 2) != Vector2.zero;
     }
 
     private Vector2 Round(Vector2 vector, int digits)
     {
-        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.x, digits));
+        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.y, digits));
     }
 }

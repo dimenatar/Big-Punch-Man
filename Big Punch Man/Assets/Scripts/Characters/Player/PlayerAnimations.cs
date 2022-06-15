@@ -24,11 +24,6 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Awake()
     {
-        //_controller.OnBeginDrag += () => _animator.SetTrigger(RUN);
-        // _controller.TouchEvent += CheckMovementVector;
-        // _controller.OnEndDrag += () => _animator.SetTrigger(IDLE);
-        //_controller.OnEndDrag += () => _isRunning = false;
-
         _hitRandomizer.OnHitChosen += Punch;
         _finish.OnFinish += () => StopAllCoroutines();
         _finish.OnFinish += Win;
@@ -46,9 +41,6 @@ public class PlayerAnimations : MonoBehaviour
         // choose random attack
         _animator.SetTrigger(PUNCH);
         _animator.SetInteger(PUNCH_INDEX, (int)hit);
-
-        // _animator.SetInteger(PUNCH_INDEX, Random.Range(0, _punchAnimationsAmount));
-        //_animator.SetInteger(PUNCH_INDEX, 3);
     }
 
     private void Win()
@@ -83,6 +75,6 @@ public class PlayerAnimations : MonoBehaviour
 
     private Vector2 Round(Vector2 vector, int digits)
     {
-        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.x, digits));
+        return new Vector2((float)System.Math.Round(vector.x, digits), (float)System.Math.Round(vector.y, digits));
     }
 }

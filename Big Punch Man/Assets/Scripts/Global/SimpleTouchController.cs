@@ -59,7 +59,7 @@ public class SimpleTouchController : MonoBehaviour
 
 	public void OnValueChanged(Vector2 value)
 	{
-		if (_touchPresent)
+		if (_isDragging)
 		{
 			// convert the value between 1 0 to -1 +1
 			movementVector.x = ((1 - value.x) - 0.5f) * 2f;
