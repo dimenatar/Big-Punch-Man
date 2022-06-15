@@ -1894,7 +1894,7 @@ MonoBehaviour:
   _ultPart: {fileID: 867351345}
   _playerFight: {fileID: 919132147527712753}
   _camera: {fileID: 963194228}
-  _duration: 0.5
+  _duration: 0.2
   _addMagnitudePerKilled: 0.02
 --- !u!1 &970161495
 GameObject:
