@@ -23,7 +23,6 @@ public class EnemyMove : MonoBehaviour
     {
         
         _player = player;
-        Debug.LogWarning($"{_player} {player}");
 
         _delayToGetNewPoint = delayToGetNewPoint;
     }

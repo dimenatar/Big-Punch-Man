@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraShaking : MonoBehaviour
 {
+    [SerializeField] private PunchPart _ultPart;
     [SerializeField] private PlayerSimpleFight _playerFight;
     [SerializeField] private Transform _camera;
 
@@ -17,6 +18,7 @@ public class CameraShaking : MonoBehaviour
     private void Awake()
     {
         _playerFight.OnEnemyPunched += StartShaking;
+        _ultPart.OnEnemyPunched += StartShaking;
     }
 
     private void StartShaking()
