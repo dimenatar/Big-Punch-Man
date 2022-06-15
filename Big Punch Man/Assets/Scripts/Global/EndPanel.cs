@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class EndPanel : MonoBehaviour
 {
+    [SerializeField] private LevelLoader _levelLoader;
     [SerializeField] private TouchPosition _touchPosition;
     [SerializeField] private Stages _stages;
     [SerializeField] private Finish _finish;
@@ -44,6 +45,7 @@ public class EndPanel : MonoBehaviour
         {
             _panelImage.enabled = true;
             _buttonText.text = WIN_BUTTON;
+            _button.GetComponent<Button>().onClick.AddListener(_stages.UserCompletedStage);
             _result.text = $"LEVEL {_stages.CurrentStageIndex} {WIN_TEXT}";
         }
         else
@@ -51,7 +53,7 @@ public class EndPanel : MonoBehaviour
             _buttonText.text = LOSE_BUTTON;
             _result.text = $"LEVEL {_stages.CurrentStageIndex} {LOSE_TEXT}";
         }
-
+        _button.GetComponent<Button>().onClick.AddListener(_levelLoader.Reload);
         AniamteUI();
     }
 

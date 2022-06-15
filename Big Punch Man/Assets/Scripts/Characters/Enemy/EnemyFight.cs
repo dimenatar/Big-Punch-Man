@@ -18,7 +18,6 @@ public class EnemyFight : MonoBehaviour
     { 
         _damage = damage;
         _delayToHit = delayToHit;
-        print(_delayToHit);
     }
 
     private void OnDestroy()
