@@ -51,6 +51,11 @@ public class TouchPosition : MonoBehaviour
     }
 
 
-    public void DisalbeTouch() => _isShown = false;
+    public void DisalbeTouch()
+    {
+        _controller.gameObject.SetActive(false);
+        _isShown = false;
+    }
+
     public void Enabletouch() => _isShown = true;
 }

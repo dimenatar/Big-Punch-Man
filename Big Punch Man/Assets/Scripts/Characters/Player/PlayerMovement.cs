@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void Final()
     {
         _isMoving = false;
-        Destroy(_joystick.gameObject);
+        //Destroy(_joystick.gameObject);
     }
 
     private bool CheckMovementVector(Vector2 vector)

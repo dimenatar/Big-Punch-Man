@@ -18,11 +18,28 @@ public class EnemyGroup : MonoBehaviour
     {
        // _enemies = GetComponentsInChildren<Enemy>().ToList();
         _trigger.OnActivate += () => OnActivate?.Invoke();
-        _enemies.ForEach(enemy => OnActivate += enemy.Enable);
+        SubscribeEnemies();
+    }
+
+    private void SubscribeEnemies()
+    {
+        foreach (var enemy in _enemies)
+        {
+            enemy.OnDied -= OnActivate;
+            enemy.OnDied += () => _enemies.Remove(enemy);
+            OnActivate += enemy.Enable;
+        }
     }
 
     public void Initialise(Transform player)
     {
-        _enemies.ForEach(enemy => enemy.Initialise(player));
+        //_enemies.ForEach(enemy => enemy.Initialise(player));
+        foreach (var enemy in _enemies)
+        {
+            if (enemy)
+            {
+                enemy.Initialise(player);
+            }
+        }
     }
 }

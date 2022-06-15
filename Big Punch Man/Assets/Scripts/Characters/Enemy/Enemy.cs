@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
 
     public void Enable()
     {
+        if (this)
         OnStartChasing?.Invoke();
     }
 
